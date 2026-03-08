@@ -27,12 +27,12 @@ function renderProducts(list) {
         card.className = "product-card";
 
         card.innerHTML = `
-            <img src="${product.thumbnail}" />
-            <h3>${product.title}</h3>
-            <p>₹${product.price}</p>
-            <p>${product.description}</p>
-            <button onclick="addToCart(${product.id})">Add to Cart</button>
-        `;
+<img src="${product.thumbnail}" onclick="openProduct(${product.id})" style="cursor:pointer"/>
+<h3 onclick="openProduct(${product.id})" style="cursor:pointer">${product.title}</h3>
+<p>₹${product.price}</p>
+<p>${product.description}</p>
+<button onclick="addToCart(${product.id})">Add to Cart</button>
+`;
 
         productContainer.appendChild(card);
 
@@ -98,7 +98,9 @@ categorySelect.addEventListener("change", (e) => {
         renderProducts(filtered);
 
     }
-
+    function openProduct(id) {
+        window.location.href = "product.html?id=" + id;
+    }
 });
 
 // Load products
