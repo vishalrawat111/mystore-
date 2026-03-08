@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product Details</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+        }
+
+        img {
+            width: 300px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Product Details</h1>
+
+    <div class="container">
+
+        <img id="product-image">
+
+        <div>
+
+            <h2 id="product-title"></h2>
+
+            <p id="product-description"></p>
+
+            <h3>₹<span id="product-price"></span></h3>
+
+            <button onclick="addToCart()">Add to Cart</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const params = new URLSearchParams(window.location.search);
+
+        const id = params.get("id");
+
+        async function loadProduct() {
+
+            const res = await fetch("https://dummyjson.com/products/" + id);
+
+            const product = await res.json();
+
+            document.getElementById("product-image").src = product.thumbnail;
+
+            document.getElementById("product-title").textContent = product.title;
+
+            document.getElementById("product-description").textContent = product.description;
+
+            document.getElementById("product-price").textContent = product.price;
+
+            window.currentProduct = product;
+
+        }
+
+        function addToCart() {
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            cart.push(window.currentProduct);
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            alert("Added to cart");
+
+        }
+
+        loadProduct();
+
+    </script>
+
+</body>
+
+</html>
