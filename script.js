@@ -104,6 +104,9 @@ categorySelect.addEventListener("change", (e) => {
     }
 
 });
+function goCheckout() {
+    window.location.href = "checkout.html";
+}
 
 // Load products
 loadProducts();
