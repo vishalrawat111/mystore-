@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -59,7 +60,9 @@
 
             cart.forEach((item, index) => {
 
-                total += item.price * (item.qty || 1);
+                if (!item.qty) { item.qty = 1 }
+
+                total += item.price * item.qty;
 
                 const div = document.createElement("div");
 
@@ -76,7 +79,7 @@
 
 <button onclick="decreaseQty(${index})">-</button>
 
-<span>${item.qty || 1}</span>
+<span>${item.qty}</span>
 
 <button onclick="increaseQty(${index})">+</button>
 
@@ -90,13 +93,13 @@
 
             });
 
-            document.getElementById("total").textContent = total;
+            document.getElementById("total").textContent = total.toFixed(2);
 
         }
 
         function increaseQty(index) {
 
-            cart[index].qty = (cart[index].qty || 1) + 1;
+            cart[index].qty++;
 
             saveCart();
 
@@ -104,7 +107,7 @@
 
         function decreaseQty(index) {
 
-            if ((cart[index].qty || 1) > 1) {
+            if (cart[index].qty > 1) {
 
                 cart[index].qty--;
 
